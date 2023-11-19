@@ -19,16 +19,24 @@ uniform float isBlend6;
 
 varying vec2 vTexCoord;
 
+float quadraticInOut(float t) {
+  float p = 2.0 * t * t;
+  return t < 0.5 ? p : -p + (4.0 * t) - 1.0;
+}
+
 void main() {
   vec4 samplerColor0 = texture2D(textureUnit0, vTexCoord);
   vec4 samplerColor1 = texture2D(textureUnit1, vTexCoord);
 
-  vec4 noiseColor1 = texture2D(textureUnit2, vTexCoord);
-  vec4 noiseColor2 = texture2D(textureUnit3, vTexCoord);
-  vec4 noiseColor3 = texture2D(textureUnit4, vTexCoord);
-  vec4 noiseColor4 = texture2D(textureUnit5, vTexCoord);
-  vec4 noiseColor5 = texture2D(textureUnit6, vTexCoord);
-  vec4 noiseColor6 = texture2D(textureUnit7, vTexCoord);
+  float offset = quadraticInOut(ratio) * .1 + .9;
+  vec2 offsetTexCoord = vec2(vTexCoord.x * offset, vTexCoord.y);
+
+  vec4 noiseColor1 = texture2D(textureUnit2, offsetTexCoord);
+  vec4 noiseColor2 = texture2D(textureUnit3, offsetTexCoord);
+  vec4 noiseColor3 = texture2D(textureUnit4, offsetTexCoord);
+  vec4 noiseColor4 = texture2D(textureUnit5, offsetTexCoord);
+  vec4 noiseColor5 = texture2D(textureUnit6, offsetTexCoord);
+  vec4 noiseColor6 = texture2D(textureUnit7, offsetTexCoord);
 
   vec4 outColor = vec4(0.0);
 
