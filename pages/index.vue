@@ -8,6 +8,9 @@
       <li>
         <NuxtLink to="/002">002</NuxtLink>
       </li>
+      <li>
+        <NuxtLink to="/003">003</NuxtLink>
+      </li>
     </ul>
   </div>
 </template>
